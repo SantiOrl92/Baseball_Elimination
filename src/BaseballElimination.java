@@ -43,6 +43,7 @@ public class BaseballElimination
 				System.out.println(vitt[i]+" - "+rest[i]);
 				
 			}
+			System.out.println("ciao");
 		}
 		catch(Exception e)
 		{
