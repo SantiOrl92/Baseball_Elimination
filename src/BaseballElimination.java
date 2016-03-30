@@ -32,7 +32,10 @@ public class BaseballElimination
 			}
 			buffer.close();
 			
-			int indexTarget=generator.getMin(vitt);
+			int indexTarget=numSquadre-1;
+			int wMax=vitt[indexTarget]+rest[indexTarget];
+			System.out.println(wMax);
+			int []u=generator.vittorieNS(vitt, indexTarget, wMax);
 			int matchVertex=generator.howManyVertexMatch(scontro,indexTarget);
 			int teamVertex=numSquadre-1;
 			int V=matchVertex+teamVertex+2;
@@ -51,9 +54,25 @@ public class BaseballElimination
 				int j=Integer.parseInt(""+indexes[k].charAt(2));
 				FlowEdge e=new FlowEdge(s,gameindex,scontro[i][j],0);
 				rete.addEdge(e);
-				//e=new FlowEdge(gameindex,,Integer.MAX_VALUE,0);
-				//rete.addEdge(e);
-				//e=new FlowEdge(gameindex,j,Integer.MAX_VALUE,0);
+				e=new FlowEdge(gameindex,((i+matchVertex)%matchVertex)+matchVertex+1,Integer.MAX_VALUE,0);
+				rete.addEdge(e);
+				e=new FlowEdge(gameindex,((j+matchVertex)%matchVertex)+matchVertex+1,Integer.MAX_VALUE,0);
+				rete.addEdge(e);
+			}
+			
+			for(k=0;k<numSquadre-1;k++)
+			{
+				FlowEdge e=new FlowEdge(k+4,t,u[k],0);
+				rete.addEdge(e);
+			}
+			
+			for(k=0;k<rete.adj.length;k++)
+			{
+				Node e=rete.adj[k].head;
+				for(;e!=null;e=e.next)
+				{
+					System.out.println(e.toString());
+				}
 			}
 		}
 		catch(Exception e)
