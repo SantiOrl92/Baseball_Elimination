@@ -18,13 +18,13 @@ public class FlowNetwork
 		}
 	}
 	
-	public void addEdge(Node e)
+	public void addEdge(FlowEdge e)
 	{
 		int v=e.from;
 		int w=e.to;
 		validateVertex(v);
 		validateVertex(w);
-		adj[v].add(e);
+		adj[v].add(new Node(e));
 		E++;
 	}
 	

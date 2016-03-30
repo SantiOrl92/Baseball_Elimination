@@ -4,9 +4,6 @@ import java.util.Random;
 
 public class BaseballElimination 
 {
-	public static final int totMatch=100;
-	public static final int randomMin=50;
-	public static final int randomMax=80;
 	
 	public static void main(String[]args)
 	{
@@ -15,6 +12,7 @@ public class BaseballElimination
 		int []rest;
 		int[][] scontro;
 		BufferedReader buffer;
+		ProblemGenerator generator=new ProblemGenerator();
 		try
 		{
 			buffer=new BufferedReader(new FileReader("teams.txt"));
@@ -29,19 +27,33 @@ public class BaseballElimination
 			int k=0;
 			while((line=buffer.readLine()) != null)
 			{
-				squadra[k]=line;
+				splitAndPut(line,"_",squadra,vitt,rest,scontro,k);
 				k++;
 			}
+			buffer.close();
 			
-			/*for(int i=0;i<squadra.length;i++)
-				System.out.println("Squadra "+i+" : "+squadra[i]);*/
-			Random rand=new Random();
-			for(int i=0;i<vitt.length;i++)
+			int indexTarget=generator.getMin(vitt);
+			int matchVertex=generator.howManyVertexMatch(scontro,indexTarget);
+			int teamVertex=numSquadre-1;
+			int V=matchVertex+teamVertex+2;
+			//System.out.println("number of vertex match: "+V);
+			FlowNetwork rete=new FlowNetwork(matchVertex+teamVertex+2);
+			
+			int s=0;
+			int t=V-1;
+			
+			String []indexes=generator.indexesOfMatch(scontro,indexTarget,matchVertex);
+			
+			int gameindex=1;
+			for(k=0;k<indexes.length;k++,gameindex++)
 			{
-				vitt[i]=rand.nextInt(randomMax-randomMin)+randomMin;
-				rest[i]=totMatch-vitt[i];
-				System.out.println(vitt[i]+" - "+rest[i]);
-				
+				int i=Integer.parseInt(""+indexes[k].charAt(0));
+				int j=Integer.parseInt(""+indexes[k].charAt(2));
+				FlowEdge e=new FlowEdge(s,gameindex,scontro[i][j],0);
+				rete.addEdge(e);
+				//e=new FlowEdge(gameindex,,Integer.MAX_VALUE,0);
+				//rete.addEdge(e);
+				//e=new FlowEdge(gameindex,j,Integer.MAX_VALUE,0);
 			}
 		}
 		catch(Exception e)
@@ -49,5 +61,27 @@ public class BaseballElimination
 			
 		}
 	}
-
+	
+	public static void splitAndPut(String str, String regex,String []squadra,
+			int []vitt,int []rest,int[][] scontro,int k)
+	{
+		String []aux=str.split(regex);
+		
+		squadra[k]=aux[0];
+		System.out.print(squadra[k]+"\t");
+		
+		vitt[k]=Integer.parseInt(aux[1]);
+		System.out.print(vitt[k]+"\t");
+		
+		rest[k]=Integer.parseInt(aux[2]);
+		System.out.print(rest[k]+"\t");
+		
+		for(int i=0,j=3;i<scontro[k].length && j<aux.length;i++,j++)
+		{
+			//System.out.println(i);
+			scontro[k][i]=Integer.parseInt(aux[j]);
+			System.out.print(scontro[k][i]+"\t");
+		}
+		System.out.println();
+	}
 }

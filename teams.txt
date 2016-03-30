@@ -1,5 +1,5 @@
 4
-Yale
-Harvard
-Cornell
-Brown
+Yale_33_8_0_1_6_1
+Harvard_29_5_1_0_1_3
+Cornell_28_8_6_1_0_1
+Brown_27_5_1_3_1_0
