@@ -9,7 +9,7 @@ public class MainTest
 		baseball.generateTable(fileName);
 		FlowNetwork network=baseball.generateFlowNetwork();
 		System.out.println();
-		System.out.println("=================FLOWNETWOK OF THE PROBLEM=================");
+		System.out.println("===================PROBLEM OF FLOWNETWOK===================");
 		System.out.println(network.toString());
 	}
 
