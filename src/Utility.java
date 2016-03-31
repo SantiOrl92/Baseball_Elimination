@@ -1,5 +1,5 @@
 
-public class ProblemGenerator 
+public class Utility 
 {	
 	public int howManyVertexMatch(int [][]scontro,int indexTarg)
 	{
@@ -48,7 +48,7 @@ public class ProblemGenerator
 			if(i!=target)
 			{
 				u[j]=wMax-vitt[i];
-				System.out.println(u[j]);
+				//System.out.println(u[j]);
 				j++;
 			}
 		}

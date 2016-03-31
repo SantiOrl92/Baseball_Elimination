@@ -43,4 +43,19 @@ public class FlowNetwork
 		if (v < 0 || v >= V)
 			throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V-1));
 	}
+	
+	public String toString()
+	{
+		String str="";
+		for(int i=0;i<adj.length;i++)
+		{
+			Node e=adj[i].head;
+			for(;e!=null;e=e.next)
+			{
+				//System.out.println(e.toString());
+				str+=e.toString()+"\n";
+			}
+		}
+		return str;
+	}
 }
