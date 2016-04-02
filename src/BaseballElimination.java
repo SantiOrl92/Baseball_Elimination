@@ -81,9 +81,14 @@ public class BaseballElimination
 		return network;
 	}
 	
-	public boolean checkElimination()
+	public boolean checkElimination(int maxFlow,FlowNetwork network)
 	{
-		return true;
+		int count=0;
+		for(Node e=network.adj[0].head;e!=null;e=e.next)
+			count+=e.capacity;
+		if(count==maxFlow)
+			return true;
+		return false;
 	}
 	
 	public void splitAndPut(String str, String regex,String []squadra,

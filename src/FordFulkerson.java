@@ -13,11 +13,21 @@ public class FordFulkerson
 		while(hasAugmentingPath(network,s,t))
 		{
 			//search the min value in the path
+			int min=Integer.MAX_VALUE;
+			for (int v=t;v!=s;v=edgeTo[v].other(v))
+			{
+				min=Math.min(min, edgeTo[v].residualCapacityTo(v));
+			}
+			for (int v=t;v!=s;v=edgeTo[v].other(v))
+			{
+				edgeTo[v].addResidualFlowTo(v, min);
+			}
 			
 			//increment flow for each edge in the 
 			//augmenting path
-			
+			flow+=min;
 		}
+		//System.out.println(flow);
 	}
 	
 	public boolean hasAugmentingPath(FlowNetwork network, int s,int t)
@@ -49,6 +59,11 @@ public class FordFulkerson
 		}
 			
 		return  marked[t];
+	}
+	
+	public int getFlow()
+	{
+		return flow;
 	}
 	
 	public boolean validate(int s, int t,int V)

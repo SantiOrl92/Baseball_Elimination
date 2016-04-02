@@ -11,6 +11,8 @@ public class MainTest
 		System.out.println();
 		System.out.println("===================PROBLEM OF FLOWNETWOK===================");
 		System.out.println(network.toString());
+		FordFulkerson maxFlow=new FordFulkerson(network,0,network.getV()-1);
+		System.out.println(baseball.checkElimination(maxFlow.getFlow(), network));
 	}
 
 }
