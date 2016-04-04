@@ -9,7 +9,7 @@ public class FordFulkerson
 	public FordFulkerson(FlowNetwork network, int s,int t)
 	{
 		validate(s,t,network.getV());
-		int value=0; //flow global var
+		flow=0; //flow global var
 		while(hasAugmentingPath(network,s,t))
 		{
 			//search the min value in the path
@@ -27,7 +27,7 @@ public class FordFulkerson
 			//augmenting path
 			flow+=min;
 		}
-		//System.out.println(flow);
+		System.out.println(flow);
 	}
 	
 	public boolean hasAugmentingPath(FlowNetwork network, int s,int t)

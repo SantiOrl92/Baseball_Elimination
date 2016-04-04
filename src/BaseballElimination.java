@@ -81,14 +81,13 @@ public class BaseballElimination
 		return network;
 	}
 	
-	public boolean checkElimination(int maxFlow,FlowNetwork network)
+	public Node checkEliminationCondition(FlowNetwork network)
 	{
-		int count=0;
-		for(Node e=network.adj[0].head;e!=null;e=e.next)
-			count+=e.capacity;
-		if(count==maxFlow)
-			return true;
-		return false;
+		Node e;
+		for(e=network.adj[0].head;e!=null;e=e.next)
+			if(e.flow<e.capacity)
+				break;
+		return e;
 	}
 	
 	public void splitAndPut(String str, String regex,String []squadra,
