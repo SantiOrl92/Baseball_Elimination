@@ -1,10 +1,16 @@
+import javax.swing.JFrame;
 
-public class MainTest 
+public class MainTest extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static void main(String[]args)
 	{
 		BaseballElimination baseball=new BaseballElimination();
-		String fileName="Sample_2.txt";
+		String fileName="Sample_1.txt";
 		System.out.println("==================TABLE BASEBALL DIVISION==================");
 		System.out.println("TEAM\t WINS\t LEFT\t\t LEFT MATCH(i Vs j)");
 
@@ -29,6 +35,10 @@ public class MainTest
 			
 		System.out.println("===================FINAL FLOWNETWOK===================");
 		System.out.println(network.toString());
+		GraphDraw frame = new GraphDraw("Test Window");
+		frame.setSize(800,800);
+		
+		baseball.draw(frame);
+		frame.setVisible(true);
 	}
-
 }
