@@ -64,14 +64,16 @@ class GraphDraw extends JFrame {
     public void paint(Graphics g) { // draw the nodes and edges
 	FontMetrics f = g.getFontMetrics();
 	int nodeHeight = Math.max(height, f.getHeight());
-
-	g.setColor(Color.black);
-	g.setFont(new Font("Arial",Font.BOLD,13));
+    g.setColor(Color.white);
+    g.fillRect(0, 0,getHeight(),getWidth());
+	
 	for (edge e : edges) {
+		g.setColor(Color.black);
+		g.setFont(new Font("Arial",Font.BOLD,13));
 	    g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
 		     nodes.get(e.j).x, nodes.get(e.j).y);
-	    g.drawString(e.str, ((nodes.get(e.j).x+nodes.get(e.i).x)/2),
-	    		((nodes.get(e.j).y+nodes.get(e.i).y)/2));
+	   g.drawString(e.str, ((nodes.get(e.j).x+nodes.get(e.i).x)/2)-10,
+	    		((nodes.get(e.j).y+nodes.get(e.i).y)/2)-10);
 	}
 
 	for (Node n : nodes) {
