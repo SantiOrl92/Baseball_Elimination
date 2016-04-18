@@ -5,14 +5,14 @@ public class MainTest extends JFrame
 	public static void main(String[]args)
 	{
 		BaseballElimination baseball=new BaseballElimination();
-		String fileName="Sample_3.txt";
+		String fileName="Sample_1.txt";
 		System.out.println("==================TABLE BASEBALL DIVISION==================");
 		System.out.println("TEAM\t WINS\t LEFT\t\t LEFT MATCH(i Vs j)");
 
 		baseball.generateTable(fileName);
-		boolean flag=true;
-		while(flag)
-		{
+		//boolean flag=true;
+		//while(flag)
+		//{
 			FlowNetwork network=baseball.generateFlowNetwork();
 			System.out.println();
 			System.out.println("===================PROBLEM OF FLOWNETWOK===================");
@@ -23,13 +23,13 @@ public class MainTest extends JFrame
 			{			
 				System.out.println("Team "+baseball.teams[baseball.teamsNum-1]+" is not mathematically eliminated");
 				System.out.println("because we can satisfy all the winning conditions between other teams");
-				flag=true;
+				//flag=true;
 			}
 			else
 			{
 				System.out.println("Team "+baseball.teams[baseball.teamsNum-1]+" is mathematically eliminated");
 				System.out.println("because the winning condition between, the teams in the match "+e.toString()+" is not satisfy");
-				flag=false;
+				//flag=false;
 			}
 			System.out.println();	
 			System.out.println("===================FINAL FLOWNETWOK===================");
@@ -42,8 +42,8 @@ public class MainTest extends JFrame
 			frame.setResizable(false);
 			frame.setVisible(true);
 			
-			baseball.simulateMatch();
+			//baseball.simulateMatch();
 			
-		}
+		//}
 	}
 }
