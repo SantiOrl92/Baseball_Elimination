@@ -28,6 +28,7 @@ public class Utility
 				if(scontro[i][j]>0)
 				{
 					indexes[k]=""+i+"-"+j;
+					System.out.println(indexes[k]);
 					sum+=scontro[i][j];
 					k++;
 				}

@@ -15,7 +15,7 @@ public class BaseballElimination
 	private int matchVertex;
 	private String []indexes;
 	private FlowNetwork network;
-	
+	private int simulate[];
 	public void generateTable(String fileName)
 	{
 		BufferedReader buffer;
@@ -130,6 +130,7 @@ public class BaseballElimination
 		for(int i=V-2,k=teams.length-2;k>=0;i--,k--)
 		{
 			labelNode[i]=""+teams[k].substring(0, 3);
+			//System.out.println(labelNode[i]);
 		}
 		
 		int inquireTeam=teamsNum-1;
@@ -138,6 +139,7 @@ public class BaseballElimination
 		{
 			int v=Integer.parseInt(""+indexes[i].charAt(0));
 			int w=Integer.parseInt(""+indexes[i].charAt(2));
+			System.out.println(labelNode[((w+matchVertex)%matchVertex)+matchVertex-1]);
 			labelNode[k]=labelNode[((v+matchVertex)%matchVertex)+matchVertex+1]+""
 									+ ", "+""
 									+labelNode[((w+matchVertex)%matchVertex)+matchVertex+1];
@@ -200,12 +202,77 @@ public class BaseballElimination
 		}
 	}
 	
-	public void simulateMatch()
+	public void simulateHalfMatch()
 	{
+		int last=teams.length-1;
+		int first=0;
+		simulate=new int [2];
+		simulate[0]=simulate[1]=left[last]/2;
+		int k=0,i=0;
+		while(k<simulate[1])
+		{
+			if(match[last][i]>0)
+			{
+				wins[last]++;
+				left[i]--;
+				left[last]--;
+				match[last][i]--;
+				match[i][last]--;
+				if(i==first)
+					simulate[0]--;
+				k++;
+			}
+			i=(i+1)%last;
+		}
 		Random rand=new Random();
-		int index=left.length-1;
-		left[index]=left[index]/2;
-		wins[index]+=left[index];
-		System.out.println(left[index]);		
+		k=0;
+		i=1;
+		while(k<simulate[0])
+		{
+			if(match[first][i]>0)
+			{
+				int esito=rand.nextInt(2);
+				if(esito==0)
+				{
+					wins[i]++;
+				}
+				else
+				{
+					wins[first]++;
+				}
+				left[first]--;
+				left[i]--;
+				match[first][i]--;
+				match[i][first]--;
+				k++;
+			}
+			i=(i+1)%last;
+		}
+	}
+	
+	public void printTable()
+	{
+		for(int i=0;i<teamsNum;i++)
+		{
+			System.out.print(teams[i]+"\t");
+			System.out.print(wins[i]+"\t");
+			System.out.print(left[i]+"\t");
+			for(int j=0;j<teamsNum;j++)
+			{
+				System.out.print(match[i][j]+"\t");
+			}
+			System.out.println();
+		}
+	}
+	
+	public boolean validate()
+	{
+		int wmax=wins[teamsNum-1]+left[teamsNum-1];
+		for(int i=0;i<teamsNum-1;i++)
+		{
+			if(wins[i]+left[i]>wmax)
+				return false;
+		}
+		return true;
 	}
 }

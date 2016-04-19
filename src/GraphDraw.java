@@ -72,8 +72,9 @@ class GraphDraw extends JFrame {
 		g.setFont(new Font("Arial",Font.BOLD,13));
 	    g.drawLine(nodes.get(e.i).x, nodes.get(e.i).y,
 		     nodes.get(e.j).x, nodes.get(e.j).y);
-	   g.drawString(e.str, ((nodes.get(e.j).x+nodes.get(e.i).x)/2)-10,
+	    g.drawString(e.str, ((nodes.get(e.j).x+nodes.get(e.i).x)/2)-10,
 	    		((nodes.get(e.j).y+nodes.get(e.i).y)/2)-10);
+	   
 	}
 
 	for (Node n : nodes) {
