@@ -16,6 +16,7 @@ public class BaseballElimination
 	private String []indexes;
 	private FlowNetwork network;
 	private int simulate[];
+	
 	public void generateTable(String fileName)
 	{
 		BufferedReader buffer;
@@ -49,7 +50,7 @@ public class BaseballElimination
 	
 	public FlowNetwork generateFlowNetwork()
 	{
-		int inquireTeam=teamsNum-1;
+		int inquireTeam=wins.length-1;
 		int wMax=wins[inquireTeam]+left[inquireTeam];
 		//System.out.println(wMax);
 		int []u=generator.vittorieNS(wins, inquireTeam, wMax);
