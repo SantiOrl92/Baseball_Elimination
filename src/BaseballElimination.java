@@ -44,7 +44,7 @@ public class BaseballElimination
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getStackTrace());
+			System.out.println(e);
 		}
 	}
 	
@@ -103,6 +103,7 @@ public class BaseballElimination
 	public void splitAndPut(String str, String regex,String []squadra,
 			int []vitt,int []rest,int[][] scontro,int k)
 	{
+		str=str.replaceAll(" ", "");
 		String []aux=str.split(regex);
 		
 		squadra[k]=aux[0];
@@ -130,7 +131,10 @@ public class BaseballElimination
 		
 		for(int i=V-2,k=teams.length-2;k>=0;i--,k--)
 		{
-			labelNode[i]=""+teams[k].substring(0, 3);
+			if(teams[k].length()>=3)
+				labelNode[i]=""+teams[k].substring(0, 3);
+			else
+				labelNode[i]=""+teams[k].charAt(0);
 			//System.out.println(labelNode[i]);
 		}
 		
@@ -140,7 +144,7 @@ public class BaseballElimination
 		{
 			int v=Integer.parseInt(""+indexes[i].charAt(0));
 			int w=Integer.parseInt(""+indexes[i].charAt(2));
-			System.out.println(labelNode[((w+matchVertex)%matchVertex)+matchVertex-1]);
+			//System.out.println(labelNode[((w+matchVertex)%matchVertex)+matchVertex-1]);
 			labelNode[k]=labelNode[((v+matchVertex)%matchVertex)+matchVertex+1]+""
 									+ ", "+""
 									+labelNode[((w+matchVertex)%matchVertex)+matchVertex+1];
@@ -203,67 +207,23 @@ public class BaseballElimination
 		}
 	}
 	
-	public void simulateHalfMatch()
-	{
-		int last=teams.length-1;
-		int first=0;
-		simulate=new int [2];
-		simulate[0]=simulate[1]=left[last]/2;
-		int k=0,i=0;
-		while(k<simulate[1])
-		{
-			if(match[last][i]>0)
-			{
-				wins[last]++;
-				left[i]--;
-				left[last]--;
-				match[last][i]--;
-				match[i][last]--;
-				if(i==first)
-					simulate[0]--;
-				k++;
-			}
-			i=(i+1)%last;
-		}
-		Random rand=new Random();
-		k=0;
-		i=1;
-		while(k<simulate[0])
-		{
-			if(match[first][i]>0)
-			{
-				int esito=rand.nextInt(2);
-				if(esito==0)
-				{
-					wins[i]++;
-				}
-				else
-				{
-					wins[first]++;
-				}
-				left[first]--;
-				left[i]--;
-				match[first][i]--;
-				match[i][first]--;
-				k++;
-			}
-			i=(i+1)%last;
-		}
-	}
 	
-	public void printTable()
+	public String printTable()
 	{
+		String str="";
 		for(int i=0;i<teamsNum;i++)
 		{
-			System.out.print(teams[i]+"\t");
-			System.out.print(wins[i]+"\t");
-			System.out.print(left[i]+"\t");
+			str+=teams[i]+"\t";
+			str+=wins[i]+"\t";
+			str+=left[i]+"\t";
+			
 			for(int j=0;j<teamsNum;j++)
 			{
-				System.out.print(match[i][j]+"\t");
+				str+=match[i][j]+"\t";
 			}
-			System.out.println();
+			str+="\n";
 		}
+		return str;
 	}
 	
 	public boolean validate()

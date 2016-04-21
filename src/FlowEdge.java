@@ -69,7 +69,7 @@ public class FlowEdge
 	private boolean validateFlow(int cap,int flo)
 	{
 		if(!(cap>=0))  throw new IllegalArgumentException("la capacità deve essere non negativa!");
-		if(!(flo<=cap)) throw new IllegalArgumentException("il flusso supera la capacità dell'arco!");
+		if(!(flow<=cap)) throw new IllegalArgumentException("il flusso supera la capacità dell'arco!");
 		if(!(flow>=0)) throw new IllegalArgumentException("il flusso deve essere non negativo!");
 		return true;
 	}
